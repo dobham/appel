@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Mahbod, Anthony
+ * Date: 2018-10-29
+ * Time: 1:08 AM
+ */
 //use session veriables to set these veriables, so that when they use the signup, they dont need to use login, make a veriable that is only used when signing up with session to do this
 $logged_in = false;
 $access=NULL;
@@ -83,5 +89,10 @@ if (isset($_POST['signup'])){
         <input type="submit" name="signup" class="buttons" value="Sign up Now">
     </form>
 </body>
-
+<footer class="footer">
+    <p>Created by: Anthony B and Mahbod S</p>
+    <p>Contact information: <a class="contact" href="mahbodsabbaghi@gmail.com">
+            mahbodsabbaghi@gmail.com</a><a class="contact" href="anthony.bertnyk@gmail">
+            anthony.bertnyk@gmail</a>.</p>
+</footer>
 </html>
