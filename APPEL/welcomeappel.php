@@ -25,51 +25,57 @@ if (isset($_POST['login']) && $_POST['username'] != null){
         echo "<p>User not found</p>";
         $logged_in = false;
     }
-}
-if (isset($_POST['signup'])){
-    ?>
+}elseif (isset($_POST['signup'])){
+?>
 <form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
     <input type="submit" name="student_sign" class="buttons" value="Student">
     <input type="submit" name="teacher_sign" class="buttons" value="Teacher">
     <input type="submit" name="admin_sign" class="buttons" value="Admin">
 </form>
 <?php
-    if(isset($_POST['student_sign'])){?>
+    if(isset($_POST['student_sign'])){
+?>
         form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="text" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_student" class="buttons" value="Sign up Student">
-    <?php}
+<?php
+    }
     if(isset($_POST['signup_student'])){
         $is_student == true;
         $username=$post['username'];
         $password=$post['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'student')";
     }
-    if(isset($_POST['teacher_sign'])){?>
+    if(isset($_POST['teacher_sign'])){
+?>
         form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="text" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_teacher" class="buttons" value="Sign up Teacher">
-    <?php}
+<?php
+    }
     if(isset($_POST['signup_teacher'])){
         $is_teacher == true;
         $username=$post['username'];
         $password=$post['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'teacher')";
-}
-    if(isset($_POST['admin_sign'])){?>
+    }
+    if(isset($_POST['admin_sign'])){
+?>
         form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="text" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_admin" class="buttons" value="Sign up Admin">
-<?php}
+<?php
+    }
     if(isset($_POST['signup_admin'])){
         $is_admin == true;
         $username=$post['username'];
         $password=$post['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'admin')";
-}
+    }
+}else{
 ?>
 <!DOCTYPE html>
 <html>
@@ -96,3 +102,5 @@ if (isset($_POST['signup'])){
             anthony.bertnyk@gmail</a>.</p>
 </footer>
 </html>
+<?php
+}
