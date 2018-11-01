@@ -4,7 +4,7 @@ $logged_in = false;
 $is_student = false;
 $is_teacher = false;
 $is_admin = false;
-if (!isset($_POST['sighup'])){
+if (!isset($_POST['signup'])){
     if (isset($_POST['login']) && $_POST != null){
         include "connectappel.php";
         $username = $_POST['username'];
@@ -23,7 +23,7 @@ if (!isset($_POST['sighup'])){
             $logged_in = false;
         }
     }
-} elseif (isset($_POST['sighup'])){
+} elseif (isset($_POST['signup'])){
     ?>
 <form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
     <input type="submit" name="student_sign" class="buttons" value="Student">
@@ -39,7 +39,9 @@ if (!isset($_POST['sighup'])){
     <?php}
     if(isset($_POST['signup_student'])){
         $is_student == true;
-        //sql = insert
+        $username=$post['username'];
+        $password=$post['password'];
+        sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'student')";
     }
     if(isset($_POST['teacher_sign'])){?>
         form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
@@ -49,7 +51,9 @@ if (!isset($_POST['sighup'])){
     <?php}
     if(isset($_POST['signup_teacher'])){
         $is_teacher == true;
-        //sql = insert
+        $username=$post['username'];
+        $password=$post['password'];
+        sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'teacher')";
 }
     if(isset($_POST['admin_sign'])){?>
         form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
@@ -59,7 +63,9 @@ if (!isset($_POST['sighup'])){
     <?php}
     if(isset($_POST['signup_admin'])){
         $is_admin == true;
-        //sql = insert
+        $username=$post['username'];
+        $password=$post['password'];
+        sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'admin')";
 }
 ?>
 <!DOCTYPE html>
