@@ -27,7 +27,7 @@ if (isset($_POST['login']) && $_POST['username'] != null){
     }
 }elseif (isset($_POST['signup'])){
 ?>
-<form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <input type="submit" name="student_sign" class="buttons" value="Student">
     <input type="submit" name="teacher_sign" class="buttons" value="Teacher">
     <input type="submit" name="admin_sign" class="buttons" value="Admin">
@@ -35,7 +35,7 @@ if (isset($_POST['login']) && $_POST['username'] != null){
 <?php
     if(isset($_POST['student_sign'])){
 ?>
-        form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
+        form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="text" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_student" class="buttons" value="Sign up Student">
@@ -49,7 +49,7 @@ if (isset($_POST['login']) && $_POST['username'] != null){
     }
     if(isset($_POST['teacher_sign'])){
 ?>
-        form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
+        form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="text" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_teacher" class="buttons" value="Sign up Teacher">
@@ -63,7 +63,7 @@ if (isset($_POST['login']) && $_POST['username'] != null){
     }
     if(isset($_POST['admin_sign'])){
 ?>
-        form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
+        form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="text" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_admin" class="buttons" value="Sign up Admin">
@@ -86,12 +86,12 @@ if (isset($_POST['login']) && $_POST['username'] != null){
 </head>
 
 <body>
-    <form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
         <input type="text" name="password" class="inputbox" placeholder="Password">
         <input type="submit" name="login" class="buttons" value="Login Now">
     </form>
-    <form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <input type="submit" name="signup" class="buttons" value="Sign up Now">
     </form>
 </body>
@@ -104,3 +104,4 @@ if (isset($_POST['login']) && $_POST['username'] != null){
 </html>
 <?php
 }
+?>
