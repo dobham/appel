@@ -57,11 +57,12 @@ if(isset($_SESSION['id'])){
 
 <?php
     }
-    if(isset($_POST['signup_student'])){
-        $is_student == true;
+    if(isset($_POST['signup_student'])  && $_POST['username'] != null && $_POST['password'] != null){
         $username=$_POST['username'];
         $password=$_POST['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'student')";
+    }elseif(isset($_POST['signup_student'])){
+        echo "You must fill all secetions";
     }
     if(isset($_POST['teacher_sign'])){
 ?>
@@ -73,11 +74,12 @@ if(isset($_SESSION['id'])){
         </form>
 <?php
     }
-    if(isset($_POST['signup_teacher'])){
-        $is_teacher == true;
+    if(isset($_POST['signup_teacher']) && $_POST['username'] != null && $_POST['password'] != null){
         $username=$_POST['username'];
         $password=$_POST['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'teacher')";
+    }elseif(isset($_POST['signup_teacher'])){
+        echo "You must fill all secetions";
     }
     if(isset($_POST['admin_sign'])){
 ?>
@@ -89,11 +91,12 @@ if(isset($_SESSION['id'])){
         </form>
 <?php
     }
-    if(isset($_POST['signup_admin'])){
-        $is_admin == true;
+    if(isset($_POST['signup_admin'])  && $_POST['username'] != null && $_POST['password'] != null){
         $username=$_POST['username'];
         $password=$_POST['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'admin')";
+    }elseif(isset($_POST['signup_admin'])){
+        echo "You must fill all secetions";
     }
 }else{
 ?>
