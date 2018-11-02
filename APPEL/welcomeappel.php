@@ -66,7 +66,7 @@ if(isset($_SESSION['id'])){
 ?>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
-            <input type="text" name="password" class="inputbox" placeholder="Password">
+            <input type="password" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_student" class="buttons" value="Sign up Student">
             <input type="hidden" name="signup">
         </form>
@@ -97,7 +97,7 @@ if(isset($_SESSION['id'])){
 ?>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
-            <input type="text" name="password" class="inputbox" placeholder="Password">
+            <input type="password" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_teacher" class="buttons" value="Sign up Teacher">
             <input type="hidden" name="signup">
         </form>
@@ -128,7 +128,7 @@ if(isset($_SESSION['id'])){
 ?>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
-            <input type="text" name="password" class="inputbox" placeholder="Password">
+            <input type="password" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_admin" class="buttons" value="Sign up Admin">
             <input type="hidden" name="signup">
         </form>
@@ -159,7 +159,7 @@ if(isset($_SESSION['id'])){
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
-    <input type="text" name="password" class="inputbox" placeholder="Password">
+    <input type="password" name="password" class="inputbox" placeholder="Password">
     <input type="submit" name="login" class="buttons" value="Login Now">
 </form>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
