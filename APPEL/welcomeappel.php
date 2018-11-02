@@ -11,19 +11,19 @@ include "connectappel.php";
 $logged_in = false;
 $access=NULL;
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <rel="stylesheet" type="text/css" href="style_main.css" />
-    <meta http-equiv="content-type" content="text/php; charset=utf-8" />
-    <title>Appel</title>
-</head>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <rel="stylesheet" type="text/css" href="style_main.css" />
+        <meta http-equiv="content-type" content="text/php; charset=utf-8" />
+        <title>Appel</title>
+    </head>
 <body>
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-    <input type="submit" name="welcomeHome" class="buttons" value="Appel">
-</form>
-<br>
-<br>
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <input type="submit" name="welcomeHome" class="buttons" value="Appel">
+    </form>
+    <br>
+    <br>
 <?php
 if(isset($_SESSION['id'])){
     $userID=$_SESSION['id'];
@@ -34,8 +34,8 @@ if(isset($_SESSION['id'])){
         $username=$row['username'];
         $_SESSION['id']=$row['id'];
         $logged_in == true;
-        //link to homepage
-    }
+        header('Location: welcomeappel.php');
+ }
 }elseif (isset($_POST['login']) && $_POST['username'] != null){
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -54,16 +54,16 @@ if(isset($_SESSION['id'])){
         $logged_in = false;
     }
 }elseif (isset($_POST['signup'])){
-                ?>
+    ?>
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <input type="submit" name="student_sign" class="buttons" value="Student">
         <input type="submit" name="teacher_sign" class="buttons" value="Teacher">
         <input type="submit" name="admin_sign" class="buttons" value="Admin">
         <input type="hidden" name="signup">
     </form>
-<?php
+    <?php
     if(isset($_POST['student_sign'])){
-?>
+        ?>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="password" name="password" class="inputbox" placeholder="Password">
@@ -71,7 +71,7 @@ if(isset($_SESSION['id'])){
             <input type="hidden" name="signup">
         </form>
 
-<?php
+        <?php
     }
     if(isset($_POST['signup_student'])  && $_POST['username'] != null && $_POST['password'] != null){
         $username=$_POST['username'];
@@ -84,9 +84,9 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
+                header('Location: welcomeappel.php');
             }
-            //add php_self form, with a button to homepage using php sessons
-            //literally just a link that takes you this exact page
+            
         }else{
             echo "error creating account";
         }
@@ -94,14 +94,14 @@ if(isset($_SESSION['id'])){
         echo "You must fill all sections";
     }
     if(isset($_POST['teacher_sign'])){
-?>
+        ?>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="password" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_teacher" class="buttons" value="Sign up Teacher">
             <input type="hidden" name="signup">
         </form>
-<?php
+        <?php
     }
     if(isset($_POST['signup_teacher']) && $_POST['username'] != null && $_POST['password'] != null){
         $username=$_POST['username'];
@@ -115,9 +115,9 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
+                header('Location: welcomeappel.php');
             }
-            //add php_self form, with a button to homepage using php sessons
-            //literally just a link that takes you this exact page
+            
         }else{
             echo "error creating account";
         }
@@ -125,14 +125,14 @@ if(isset($_SESSION['id'])){
         echo "You must fill all sections";
     }
     if(isset($_POST['admin_sign'])){
-?>
+        ?>
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
             <input type="password" name="password" class="inputbox" placeholder="Password">
             <input type="submit" name="signup_admin" class="buttons" value="Sign up Admin">
             <input type="hidden" name="signup">
         </form>
-<?php
+        <?php
     }
     if(isset($_POST['signup_admin'])  && $_POST['username'] != null && $_POST['password'] != null){
         $username=$_POST['username'];
@@ -145,10 +145,9 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
+                header('Location: welcomeappel.php');
             }
-            //add php_self form, with a button to homepage using php sessons
-            //literally just a link that takes you this exact page
-            //add homepage form
+            
         }else{
             echo "error creating account";
         }
@@ -156,24 +155,24 @@ if(isset($_SESSION['id'])){
         echo "You must fill all sections";
     }
 }else{
-?>
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-    <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
-    <input type="password" name="password" class="inputbox" placeholder="Password">
-    <input type="submit" name="login" class="buttons" value="Login Now">
-</form>
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-    <input type="submit" name="signup" class="buttons" value="Or Sign Up">
-</form>
-</body>
-<footer class="footer">
-    <p>Created by: Anthony B and Mahbod S</p>
-    <p>Contact information: <a class="contact" href="mahbodsabbaghi@gmail.com">
-            mahbodsabbaghi@gmail.com</a> <a class="contact" href="anthony.bertnyk@gmail">
-            anthony.bertnyk@gmail.com</a></p>
-</footer>
-</html>
-<?php
+    ?>
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
+        <input type="password" name="password" class="inputbox" placeholder="Password">
+        <input type="submit" name="login" class="buttons" value="Login Now">
+    </form>
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <input type="submit" name="signup" class="buttons" value="Or Sign Up">
+    </form>
+    </body>
+    <footer class="footer">
+        <p>Created by: Anthony B and Mahbod S</p>
+        <p>Contact information: <a class="contact" href="mahbodsabbaghi@gmail.com">
+                mahbodsabbaghi@gmail.com</a> <a class="contact" href="anthony.bertnyk@gmail">
+                anthony.bertnyk@gmail.com</a></p>
+    </footer>
+    </html>
+    <?php
 }
 $conn->close();
 ?>
