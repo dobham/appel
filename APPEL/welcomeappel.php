@@ -10,9 +10,24 @@ session_start();
 include "connectappel.php";
 $logged_in = false;
 $access=NULL;
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <rel="stylesheet" type="text/css" href="style_main.css" />
+    <meta http-equiv="content-type" content="text/php; charset=utf-8" />
+    <title>Appel</title>
+</head>
+<body>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    <input type="submit" name="welcomeHome" class="buttons" value="Appel">
+</form>
+<br>
+<br>
+<?php
 if(isset($_SESSION['id'])){
     $userID=$_SESSION['id'];
-    sql = "SELECT * FROM login WHERE id = '$userID'";
+    $sql = "SELECT * FROM login WHERE id = '$userID'";
     $result = $conn->query($sql);
     if($row = $result->fetch_assoc()){
         echo "<p>Login Succesful</p>";
@@ -142,29 +157,20 @@ if(isset($_SESSION['id'])){
     }
 }else{
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <rel="stylesheet" type="text/css" href="style_main.css" />
-    <meta http-equiv="content-type" content="text/php; charset=utf-8" />
-    <title>Appel</title>
-</head>
-
-<body>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
-        <input type="text" name="password" class="inputbox" placeholder="Password">
-        <input type="submit" name="login" class="buttons" value="Login Now">
-    </form>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <input type="submit" name="signup" class="buttons" value="Sign up Now">
-    </form>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
+    <input type="text" name="password" class="inputbox" placeholder="Password">
+    <input type="submit" name="login" class="buttons" value="Login Now">
+</form>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    <input type="submit" name="signup" class="buttons" value="Or Sign Up">
+</form>
 </body>
 <footer class="footer">
     <p>Created by: Anthony B and Mahbod S</p>
     <p>Contact information: <a class="contact" href="mahbodsabbaghi@gmail.com">
-            mahbodsabbaghi@gmail.com</a><a class="contact" href="anthony.bertnyk@gmail">
-            anthony.bertnyk@gmail</a>.</p>
+            mahbodsabbaghi@gmail.com</a> <a class="contact" href="anthony.bertnyk@gmail">
+            anthony.bertnyk@gmail.com</a></p>
 </footer>
 </html>
 <?php
