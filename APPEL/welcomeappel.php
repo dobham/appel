@@ -19,6 +19,7 @@ if(isset($_SESSION['id'])){
         $username=$row['username'];
         $_SESSION['id']=$row['id'];
         $logged_in == true;
+        //link to homepage
     }
 }elseif (isset($_POST['login']) && $_POST['username'] != null){
     $username = $_POST['username'];
@@ -61,8 +62,21 @@ if(isset($_SESSION['id'])){
         $username=$_POST['username'];
         $password=$_POST['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'student')";
+        if($conn->query($sql)){
+            echo "account created successfully";
+            $sql = "SELECT id FROM login WHERE username = '$username' AND password = '$password'";
+            $result = $conn->query($sql);
+            if($row = $result->fetch_assoc()){
+                echo "<p>Login Succesful</p>";
+                $_SESSION['id']=$row['id'];
+            }
+            //add php_self form, with a button to homepage using php sessons
+            //literally just a link that takes you this exact page
+        }else{
+            echo "error creating account";
+        }
     }elseif(isset($_POST['signup_student'])){
-        echo "You must fill all secetions";
+        echo "You must fill all sections";
     }
     if(isset($_POST['teacher_sign'])){
 ?>
@@ -78,8 +92,22 @@ if(isset($_SESSION['id'])){
         $username=$_POST['username'];
         $password=$_POST['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'teacher')";
+        if($conn->query($sql)){
+            echo "account created successfully";
+            //add homepage form
+            $sql = "SELECT id FROM login WHERE username = '$username' AND password = '$password'";
+            $result = $conn->query($sql);
+            if($row = $result->fetch_assoc()){
+                echo "<p>Login Succesful</p>";
+                $_SESSION['id']=$row['id'];
+            }
+            //add php_self form, with a button to homepage using php sessons
+            //literally just a link that takes you this exact page
+        }else{
+            echo "error creating account";
+        }
     }elseif(isset($_POST['signup_teacher'])){
-        echo "You must fill all secetions";
+        echo "You must fill all sections";
     }
     if(isset($_POST['admin_sign'])){
 ?>
@@ -95,8 +123,22 @@ if(isset($_SESSION['id'])){
         $username=$_POST['username'];
         $password=$_POST['password'];
         $sql = "INSERT INTO login (username, password, access) VALUES ('$username', '$password', 'admin')";
+        if($conn->query($sql)){
+            echo "account created successfully";
+            $sql = "SELECT id FROM login WHERE username = '$username' AND password = '$password'";
+            $result = $conn->query($sql);
+            if($row = $result->fetch_assoc()){
+                echo "<p>Login Succesful</p>";
+                $_SESSION['id']=$row['id'];
+            }
+            //add php_self form, with a button to homepage using php sessons
+            //literally just a link that takes you this exact page
+            //add homepage form
+        }else{
+            echo "error creating account";
+        }
     }elseif(isset($_POST['signup_admin'])){
-        echo "You must fill all secetions";
+        echo "You must fill all sections";
     }
 }else{
 ?>
