@@ -34,7 +34,7 @@ if(isset($_SESSION['id'])){
         $username=$row['username'];
         $_SESSION['id']=$row['id'];
         $logged_in == true;
-        header('Location: welcomeappel.php');
+        header('Location: homepageappel.php');
  }
 }elseif (isset($_POST['login']) && $_POST['username'] != null){
     $username = $_POST['username'];
@@ -84,7 +84,7 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: welcomeappel.php');
+                header('Location: homepageappel.php');
             }
             
         }else{
@@ -115,7 +115,7 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: welcomeappel.php');
+                header('Location: homepageappel.php');
             }
             
         }else{
@@ -145,7 +145,7 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: welcomeappel.php');
+                header('Location: homepageappel.php');
             }
             
         }else{
