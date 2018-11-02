@@ -6,16 +6,28 @@
  * Time: 1:08 AM
  */
 //use session veriables to set these veriables, so that when they use the signup, they dont need to use login, make a veriable that is only used when signing up with session to do this
+session_start();
+include "connectappel.php";
 $logged_in = false;
 $access=NULL;
-if (isset($_POST['login']) && $_POST['username'] != null){
-    include "connectappel.php";
+if(isset($_SESSION['id'])){
+    $userID=$_SESSION['id'];
+    sql = "SELECT * FROM login WHERE id = '$userID'";
+    $result = $conn->query($sql);
+    if($row = $result->fetch_assoc()){
+        echo "<p>Login Succesful</p>";
+        $username=$row['username'];
+        $_SESSION['id']=$row['id'];
+        $logged_in == true;
+    }
+}elseif (isset($_POST['login']) && $_POST['username'] != null){
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sql = "SELECT * FROM login WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
     if($row = $result->fetch_assoc()){
         echo "<p>Login Succesful</p>";
+        $_SESSION['id']=$row['id'];
         $logged_in == true;
     }
     elseif($_POST["username"]==null){
@@ -26,7 +38,7 @@ if (isset($_POST['login']) && $_POST['username'] != null){
         $logged_in = false;
     }
 }elseif (isset($_POST['signup'])){
-?>
+                ?>
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <input type="submit" name="student_sign" class="buttons" value="Student">
         <input type="submit" name="teacher_sign" class="buttons" value="Teacher">
@@ -112,4 +124,5 @@ if (isset($_POST['login']) && $_POST['username'] != null){
 </html>
 <?php
 }
+$conn->close();
 ?>
