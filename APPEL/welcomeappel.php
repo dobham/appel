@@ -25,7 +25,11 @@ $access=NULL;
     <br>
     <br>
 <?php
-if(isset($_SESSION['id'])){
+if(isset($_POST['logout'])){
+	session_unset();
+	session_destroy();
+	echo "Logged out successfully";
+}elseif(isset($_SESSION['id'])){
     $userID=$_SESSION['id'];
     $sql = "SELECT * FROM login WHERE id = '$userID'";
     $result = $conn->query($sql);
@@ -35,7 +39,7 @@ if(isset($_SESSION['id'])){
         $_SESSION['id']=$row['id'];
         $logged_in == true;
         header('Location: homepageappel.php');
- }
+	}
 }elseif (isset($_POST['login']) && $_POST['username'] != null){
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -45,6 +49,7 @@ if(isset($_SESSION['id'])){
         echo "<p>Login Succesful</p>";
         $_SESSION['id']=$row['id'];
         $logged_in == true;
+        header('Location: homepageappel.php');
     }
     elseif($_POST["username"]==null){
         echo "Error: username not submitted<br>";
@@ -84,7 +89,7 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: homepageappel.php');
+                header('Location: welcomeappel.php');
             }
             
         }else{
@@ -115,7 +120,7 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: homepageappel.php');
+                header('Location: welcomeappel.php');
             }
             
         }else{
@@ -145,7 +150,7 @@ if(isset($_SESSION['id'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: homepageappel.php');
+                header('Location: welcomeappel.php');
             }
             
         }else{
