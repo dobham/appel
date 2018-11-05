@@ -1,5 +1,6 @@
 <?php
 session_start();
+$logged_in = false;
 include "connectappel.php";
 if(isset($_SESSION['id'])){
     $userID=$_SESSION['id'];
@@ -31,6 +32,7 @@ if(isset($_SESSION['id'])){
         $logged_in = false;
     }
 }
+if ($logged_in){
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" style="display: inline;">
 <input type="submit" name="home" class="buttons" value="Appel">
@@ -49,4 +51,6 @@ if(isset($_SESSION['id'])){
 </fieldset>
 <label for="announce">Announcement</label><br><textarea name="announce" form="main_form" id="announce"></textarea>
 </form>
-
+<?php }else{
+	header("Location: welcomeappel.php");
+} ?>
