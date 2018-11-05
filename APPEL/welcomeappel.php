@@ -89,7 +89,7 @@ if(isset($_POST['logout'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: welcomeappel.php');
+                header('Location: homepageappel.php');
             }
             
         }else{
@@ -120,7 +120,7 @@ if(isset($_POST['logout'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: welcomeappel.php');
+                header('Location: homepageappel.php');
             }
             
         }else{
@@ -150,7 +150,7 @@ if(isset($_POST['logout'])){
             if($row = $result->fetch_assoc()){
                 echo "<p>Login Succesful</p>";
                 $_SESSION['id']=$row['id'];
-                header('Location: welcomeappel.php');
+                header('Location: homepageappel.php');
             }
             
         }else{
@@ -161,7 +161,7 @@ if(isset($_POST['logout'])){
     }
 }else{
     ?>
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+    <form action="<?php echo htmlspecialchars('homepageappel.php'); ?>" method="post">
         <input type="text" name="username" class="inputbox" placeholder="Username (ex.627842)">
         <input type="password" name="password" class="inputbox" placeholder="Password">
         <input type="submit" name="login" class="buttons" value="Login Now">
