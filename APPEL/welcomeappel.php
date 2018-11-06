@@ -37,7 +37,7 @@ if(isset($_POST['logout'])){
         echo "<p>Login Succesful</p>";
         $username=$row['username'];
         $_SESSION['id']=$row['id'];
-        $logged_in == true;
+        $logged_in = true;
         header('Location: homepageappel.php');
 	}
 }elseif (isset($_POST['login']) && $_POST['username'] != null){
@@ -48,7 +48,7 @@ if(isset($_POST['logout'])){
     if($row = $result->fetch_assoc()){
         echo "<p>Login Succesful</p>";
         $_SESSION['id']=$row['id'];
-        $logged_in == true;
+        $logged_in = true;
         header('Location: homepageappel.php');
     }
     elseif($_POST["username"]==null){
