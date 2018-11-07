@@ -21,6 +21,7 @@ if(isset($_SESSION['id'])){
     if($row = $result->fetch_assoc()){
         echo "<p>Login Succesful</p>";
         $_SESSION['id']=$row['id'];
+    	$userID=$_SESSION['id'];
         $logged_in = true;
     }
     elseif($_POST["username"]==null){
@@ -40,7 +41,7 @@ if ($logged_in){
 		$endDate=$_POST['endDate'];
 		$weekdays=$_POST['weekdays'];
 		$weekdaysStr=implode(",",$weekdays);
-		$sql="INSERT INTO announcement (announcement, organization, sponsors, startDate, endDate, weekdays) VALUES ('$announcement', '$organ', '$sponsors', '$startDate', '$endDate', '$weekdaysStr')";
+		$sql="INSERT INTO announcement (announcement, organization, sponsors, userid, startDate, endDate, weekdays) VALUES ('$announcement', '$organ', '$sponsors', '$userID', '$startDate', '$endDate', '$weekdaysStr')";
 		if($conn->query($sql)){
 			echo "Announcement submitted";
 		}else{
@@ -80,6 +81,7 @@ if ($logged_in){
 		<label for="thursday">Thursday</label><input type="checkbox" id="thursday" name="weekdays[]" value=thursday><br>
 		<label for="friday">Friday</label><input type="checkbox" id="friday" name="weekdays[]" value=friday><br>
 	</div>
+	<input type="hidden" name="userid" value="$userID">
 	<input type="submit" name="announce" value="Submit">
 </fieldset>
 <label for="announce">Announcement</label><br><textarea name="announcement" form="main_form" id="announce"></textarea>
