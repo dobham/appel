@@ -35,8 +35,13 @@ if ($logged_in){
 		$announcement=$_POST['announcement'];
 		$organ=$_POST['organ'];
 		$sponsors=$_POST['sponsors'];
-		$sql="INSERT INTO announcement (announcement, organization, sponsor) VALUES ('$announcement', '$organ', '$sponsors')";
+		$startDate=$_POST['startDate'];
+		$endDate=$_POST['endDate'];
+		$weekDays=$_POST['weekDays'];
+		$weekDaysStr=implode(",",$weekDays);
+		$sql="INSERT INTO announcement (announcement, organization, sponsors, startDate, endDate, weekDays) VALUES ('$announcement', '$organ', '$sponsors', '$startDate', '$endDate', '$weekDaysStr')";
 		if($conn->query($sql)){
+			echo "Announcement submitted";
 		}else{
 			echo "ERROR: ", $conn->error;
 		}
@@ -50,26 +55,23 @@ if ($logged_in){
 </form>
 <br>
 <br>
-<form action="<?php echo htmlspecialchars($_SERVER['$PHP_SELF']); ?>" method="post" id="main_form">
-<fieldset> 
-	<label for="dateStart">Date start: </label> <input type="date" id="dateStart" name="dateStart">
-	<label for="dateEnd">Date end: </label> <input type="date" id="dateEnd" name=dateEnd>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form">
+<fieldset>
+	<label for="dateStart">Date start: </label> <input type="date" id="dateStart" name="endDate">
+	<label for="dateEnd">Date end: </label> <input type="date" id="dateEnd" name="startDate">
 	<label for="organ">Name of organization: </label> <input type="text" id="organ" name="organ">
 	<label for="sponsors">Staff sponsors</label> <input type="text" id="sponsors" name="sponsors">	
 	<div>
-		<label for="monday" >Monday</label><input type="checkbox" id="monday" name=monday><br>
-		<label for="tuesday">Tuesday</label><input type="checkbox" id="tuesday" name=tuesday><br>
-		<label for="wednesday">Wednesday</label><input type="checkbox" id="wednesday" name=wednesday><br>
-		<label for="thursday">Thursday</label><input type="checkbox" id="thursday" name=thursday><br>
-		<label for="friday">Friday</label><input type="checkbox" id="friday" name=friday><br>
-		<label for="saturday">Saturday</label><input type="checkbox" id="saturday" name=saturday><br>
-		<label for="sunday">Sunday</label><input type="checkbox" id="sunday" name=sunday>
+		<label for="monday" >Monday</label><input type="checkbox" id="monday" name="weekDays[]" value=monday><br>
+		<label for="tuesday">Tuesday</label><input type="checkbox" id="tuesday" name="weekDays[]" value=tuesday><br>
+		<label for="wednesday">Wednesday</label><input type="checkbox" id="wednesday" name="weekDays[]" value=wednesday><br>
+		<label for="thursday">Thursday</label><input type="checkbox" id="thursday" name="weekDays[]" value=thursday><br>
+		<label for="friday">Friday</label><input type="checkbox" id="friday" name="weekDays[]" value=friday><br>
 	</div>
-	<input type="submit" name="announce">
+	<input type="submit" name="announce" value="Submit">
 </fieldset>
 <label for="announce">Announcement</label><br><textarea name="announcement" form="main_form" id="announce"></textarea>
 </form>
 <?php }else{
-echo "not logged";
-	//header("Location: welcomeappel.php");
+	header("Location: welcomeappel.php");
 } ?>
