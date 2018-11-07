@@ -5,11 +5,15 @@ include "connectappel.php";
 date_default_timezone_set("America/Toronto");
 if(isset($_SESSION['id'])){
     $userID=$_SESSION['id'];
-    $sql = "SELECT * FROM login WHERE id = '$userID'";
-    $result = $conn->query($sql);
+    $sql = "SELECT id, username, access FROM login WHERE id = '$userID'";
+    if($result = $conn->query($sql)){
+    }else{
+	echo "ERROR: $sql - " . $conn->error;
+    }
     if($row = $result->fetch_assoc()){
         echo "<p>Login Succesful</p>";
         $username=$row['username'];
+	$access=$row['access'];
         $_SESSION['id']=$row['id'];
         $logged_in = true;
 	}
@@ -20,6 +24,7 @@ if(isset($_SESSION['id'])){
     $result = $conn->query($sql);
     if($row = $result->fetch_assoc()){
         echo "<p>Login Succesful</p>";
+	$access=$row['access'];
         $_SESSION['id']=$row['id'];
     	$userID=$_SESSION['id'];
         $logged_in = true;
@@ -33,6 +38,7 @@ if(isset($_SESSION['id'])){
     }
 }
 if ($logged_in){
+        echo "<p>Welcome $access $username</p>";
 	if(isset($_POST['announce'])){
 		$announcement=$_POST['announcement'];
 		$organ=$_POST['organ'];
