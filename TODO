@@ -1,0 +1,34 @@
+Website
+										-FIGURE OUT HOW TO DO RECURRING ANNOUNCEMENTS
+	
+-register other users
+-Display announcements BETTER
+-Add edit and deleting features for annoucements
+-Viewer can filter annoucements?
+-Drop down lists for org and sponsor (using datalists)
+Students
+-Create a VIEW ALL page, VIEW MY page (with VIEW RECENT or VIEW ALL option), and CREATE NEW page.
+-Students would have only access to view all\
+-Teachers access view all, view theirs and create
+-Admins can create, view all and edit all, and edit uesers, view theirs.
+-Can only view annoucements on a dedication page
+Teacher
+-Teachers can only delete and edit their own annoucements
+-Can change perms for students
+Admin
+-Can change perms for students and teachers
+-Edit and delete all annoucements
+-Option to pin announcements
+
+
+
+Website Layout:
+
+As students
+Welcome (User) 
+
+Here are you teachers recent annoucements
+
+Table:
+Title,
+Information 
