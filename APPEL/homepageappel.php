@@ -62,12 +62,33 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 </form>
 <br>
 <br>
+<?php
+	if ($access=="admin"){
+?>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <input type="submit" name="createAnnounce" class="buttons" value="Create Announcement">
+        <input type="submit" name="showAll" class="buttons" value="Show all announcements">
+        <input type="submit" name="showMy" class="buttons" value="Show my announcements">
+		<!--Add admin-only forms here-->
+</form>
+<?php
+	}elseif ($access=="teacher"){
+?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
         <input type="submit" name="createAnnounce" class="buttons" value="Create Announcement">
         <input type="submit" name="showAll" class="buttons" value="Show all announcements">
         <input type="submit" name="showMy" class="buttons" value="Show my announcements">
 </form>
 <?php
+	}elseif ($access=="student"){
+?>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+        <input type="submit" name="showAll" class="buttons" value="Show all announcements">
+</form>
+<?php
+	}else{
+		echo "Error: Invalid access";
+	}
 	if(isset($_POST['createAnnounce'])){
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form">
@@ -97,7 +118,6 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 	<input type="submit" id="submit" name="submitDisplayDate" value="Go">
 </form>
 <?php
-		echo "<br>announcements here.";
 		$sql="SELECT * FROM announcement WHERE startDate <= CONVERT('$currentDate', DATE) AND endDate >= CONVERT('$currentDate', DATE) AND weekdays LIKE '%$currentWeekday%'";
 		$result=$conn->query($sql);
 		if($result=$conn->query($sql)){
@@ -110,6 +130,7 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form" style="display: inline;">
 	<input type="hidden" id="dateStart" name="deletion" value="<?php echo $row['id'] ?>">
+	<input type="hidden" name="showAll">
 	<input type="submit" id="delete" name="delete" value="Delete">
 </form>
 <?php
