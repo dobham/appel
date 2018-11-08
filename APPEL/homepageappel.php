@@ -45,6 +45,14 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 		$currentWeekday=date('D', strtotime($currentDate));
 	}
         echo "<p>Welcome $access $username</p>";
+	if(isset($_POST['delete'])){
+		$deletion=$_POST['deletion'];
+		$sql="DELETE FROM announcement WHERE id='$deletion'";
+		if($conn->query($sql) === TRUE){
+		}else{
+			echo "ERROR with deletion: " . $conn->error;
+		}
+	}
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" style="display: inline;">
 <input type="submit" name="home" class="buttons" value="Appel">
@@ -82,7 +90,6 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 </form>
 <?php
 	}elseif(isset($_POST['showAll'])){
-		//echo "Showing announcements for  $currentDate $currentWeekday";
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form">
 	<label>Filter date</label> <input type="date" id="dateStart" name="displayDate" value="<?php echo $currentDate; ?>">
@@ -98,17 +105,19 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 			echo "ERROR: " . $sql . " - " . $conn->error;
 		}
 		while($row=$result->fetch_assoc()){
-			echo "<br><b>" . $row['organization'] . " - " . $row['sponsors'] . "</b> "
+			echo "<div><br><br><b>" . $row['organization'] . " - " . $row['sponsors'] . "</b> ";
+			if($userID==$row['userid'] || $access=="admin"){
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form" style="display: inline;">
 	<input type="hidden" id="dateStart" name="deletion" value="<?php echo $row['id'] ?>">
 	<input type="submit" id="delete" name="delete" value="Delete">
 </form>
 <?php
-			echo "<br>" . $row['announcement'] . "<br>";
+			}
+			echo "<br>" . $row['announcement'] . "<br></div>";
 		}
+		echo "<br><br>No more announcements for this day.";
 	}elseif(isset($_POST['showMy'])){
-		echo "announcements here.";
 		$sql="SELECT * FROM announcement WHERE userid='$userID'";
 		$result=$conn->query($sql);
 		if($result=$conn->query($sql)){
@@ -116,8 +125,17 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 			echo "ERROR: " . $sql . " - " . $conn->error;
 		}
 		while($row=$result->fetch_assoc()){
-			echo "<br><b>" . $row['organization'] . " - " . $row['sponsors'] . "</b><br>" . $row['announcement'] . "<br>";
+			echo "<div><br><br>" . "Posted on: " . $row['date'] . "<br><b>" . $row['organization'] . " - " . $row['sponsors'] . "</b>";
+?>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form" style="display: inline;">
+	<input type="hidden" name="deletion" value="<?php echo $row['id'] ?>">
+	<input type="hidden" name="showMy">
+	<input type="submit" name="delete" value="Delete">
+</form>
+<?php
+			echo "<br>" . $row['announcement'] . "</b></div>";
 		}
+		echo "<br><br>No more announcements.";
 	}
 	if(isset($_POST['announce'])){
 		$announcement=$_POST['announcement'];
@@ -132,17 +150,6 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 			echo "Announcement submitted";
 		}else{
 			echo "ERROR: ", $conn->error;
-		}
-	}
-	if(isset($_POST['delete'])){
-		var_dump($_POST['deletion']);
-		$deletion=$_POST['deletion'];
-		echo $deletion;
-		$sql="DELETE FROM announcement WHERE id='$deletion'";
-		if($conn->query($sql) === TRUE){
-			echo "Deleted successfully";
-		}else{
-			echo "ERROR with deletion: " . $conn->error;
 		}
 	}
 ?>
