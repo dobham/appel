@@ -52,6 +52,20 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 		}else{
 			echo "ERROR with deletion: " . $conn->error;
 		}
+	}elseif(isset($_POST['edit'])){
+		$edition=$_POST['edition'];
+		$announcement=$_POST['announcement'];
+		$organ=$_POST['organ'];
+		$sponsors=$_POST['sponsors'];
+		$startDate=$_POST['startDate'];
+		$endDate=$_POST['endDate'];
+		$weekdays=$_POST['weekdays'];
+		$weekdaysStr=implode(",",$weekdays);
+		$sql="UPDATE announcement SET announcement='$announcement', organization='$organ', sponsors='$sponsors', userid='$userID', startDate='$startDate', endDate='$endDate', weekdays='$weekdaysStr' WHERE id='$edition'";
+		if($conn->query($sql) === TRUE){
+		}else{
+			echo "ERROR with editing: " . $conn->error;
+		}
 	}
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" style="display: inline;">
@@ -90,9 +104,51 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 		echo "Error: Invalid access";
 	}
 	if(isset($_POST['createAnnounce'])){
+		if(isset($_POST['startEdit'])){
+		$edition=$_POST['edition'];
+		$sql="SELECT * FROM announcement WHERE id='$edition'";
+		$result=$conn->query($sql);
+			if($result=$conn->query($sql)){
+			}else{
+				echo "ERROR: " . $sql . " - " . $conn->error;
+			}
+			if($row=$result->fetch_assoc()){
+				$edition=$row['id'];
+				$announcement=$row['announcement'];
+				$organ=$row['organization'];
+				$sponsors=$row['sponsors'];
+				$startDate=$row['startDate'];
+				$endDate=$row['endDate'];
+				$weekdays=$row['weekdays'];
+				$weekdaysAr=explode(",",$weekdays);
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form">
-<fieldset>
+	<label for="dateStart">Date start: </label> <input type="date" id="dateStart" name="startDate" value="<?php echo $startDate ?>" >
+	<label for="dateEnd">Date end: </label> <input type="date" id="dateEnd" name="endDate" value="<?php echo $endDate ?>">
+	<label for="organ">Name of organization: </label> <input type="text" id="organ" name="organ" value="<?php echo $organ ?>">
+	<label for="sponsors">Staff sponsors</label> <input type="text" id="sponsors" name="sponsors" value="<?php echo $sponsors ?>">	
+	<div>
+		<label for="monday" >Monday</label><input type="checkbox" id="monday" name="weekdays[]" value=monday <?php if(in_array("monday", $weekdaysAr)){echo "checked";} ?>><br>
+		<label for="tuesday">Tuesday</label><input type="checkbox" id="tuesday" name="weekdays[]" value=tuesday <?php if(in_array("tuesday", $weekdaysAr)){echo "checked";} ?>><br>
+		<label for="wednesday">Wednesday</label><input type="checkbox" id="wednesday" name="weekdays[]" value=wednesday <?php if(in_array("wednesday", $weekdaysAr)){echo "checked";} ?>><br>
+		<label for="thursday">Thursday</label><input type="checkbox" id="thursday" name="weekdays[]" value=thursday <?php if(in_array("thursday", $weekdaysAr)){echo "checked";} ?>><br>
+		<label for="friday">Friday</label><input type="checkbox" id="friday" name="weekdays[]" value=friday <?php if(in_array("friday", $weekdaysAr)){echo "checked";} ?>><br>
+	</div>
+	<input type="hidden" name="edition" value="<?php echo $edition ?>">
+	<input type="submit" name="edit" value="Submit">
+<label for="announce">Announcement</label><br><textarea name="announcement" form="main_form" id="announce"><?php echo $announcement ?></textarea>
+</form>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form">
+	<input type="submit" name="cancelEdit" value="Cancel">
+</form>
+<?php
+			}else{
+				echo "ERROR: Announcement not found.";
+			}
+		}else{//If not editing.
+		
+?>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form">
 	<label for="dateStart">Date start: </label> <input type="date" id="dateStart" name="startDate">
 	<label for="dateEnd">Date end: </label> <input type="date" id="dateEnd" name="endDate">
 	<label for="organ">Name of organization: </label> <input type="text" id="organ" name="organ">
@@ -104,12 +160,11 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 		<label for="thursday">Thursday</label><input type="checkbox" id="thursday" name="weekdays[]" value=thursday><br>
 		<label for="friday">Friday</label><input type="checkbox" id="friday" name="weekdays[]" value=friday><br>
 	</div>
-	<input type="hidden" name="userid" value="$userID">
 	<input type="submit" name="announce" value="Submit">
-</fieldset>
 <label for="announce">Announcement</label><br><textarea name="announcement" form="main_form" id="announce"></textarea>
 </form>
 <?php
+		}
 	}elseif(isset($_POST['showAll'])){
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form">
@@ -129,7 +184,12 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 			if($userID==$row['userid'] || $access=="admin"){
 ?>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form" style="display: inline;">
-	<input type="hidden" id="dateStart" name="deletion" value="<?php echo $row['id'] ?>">
+	<input type="hidden" name="edition" value="<?php echo $row['id'] ?>">
+	<input type="hidden" name="createAnnounce">
+	<input type="submit" id="startEdit" name="startEdit" value="Edit">
+</form>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form" style="display: inline;">
+	<input type="hidden" name="deletion" value="<?php echo $row['id'] ?>">
 	<input type="hidden" name="showAll">
 	<input type="submit" id="delete" name="delete" value="Delete">
 </form>
@@ -148,6 +208,11 @@ if ($logged_in){ //LOGGED IN STARTS HERE
 		while($row=$result->fetch_assoc()){
 			echo "<div><br><br>" . "Posted on: " . $row['date'] . "<br><b>" . $row['organization'] . " - " . $row['sponsors'] . "</b>";
 ?>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form" style="display: inline;">
+	<input type="hidden" name="edition" value="<?php echo $row['id'] ?>">
+	<input type="hidden" name="createAnnounce">
+	<input type="submit" id="startEdit" name="startEdit" value="Edit">
+</form>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="main_form" style="display: inline;">
 	<input type="hidden" name="deletion" value="<?php echo $row['id'] ?>">
 	<input type="hidden" name="showMy">
